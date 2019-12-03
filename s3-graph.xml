@@ -1,0 +1,74 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement"/>
+  </node>
+  <node id="Idepix.Sentinel3.Olci">
+    <operator>Idepix.Sentinel3.Olci</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <radianceBandsToCopy/>
+      <reflBandsToCopy/>
+      <outputSchillerNNValue>false</outputSchillerNNValue>
+      <computeCloudBuffer>true</computeCloudBuffer>
+      <cloudBufferWidth>2</cloudBufferWidth>
+      <useSrtmLandWaterMask>true</useSrtmLandWaterMask>
+    </parameters>
+  </node>
+  <node id="Reproject">
+    <operator>Reproject</operator>
+    <sources>
+      <sourceProduct refid="Idepix.Sentinel3.Olci"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <wktFile/>
+      <crs>EPSG:4326</crs>
+      <resampling>Nearest</resampling>
+      <referencePixelX/>
+      <referencePixelY/>
+      <easting/>
+      <northing/>
+      <orientation/>
+      <pixelSizeX/>
+      <pixelSizeY/>
+      <width/>
+      <height/>
+      <tileSizeX/>
+      <tileSizeY/>
+      <orthorectify>false</orthorectify>
+      <elevationModelName/>
+      <noDataValue>NaN</noDataValue>
+      <includeTiePointGrids>true</includeTiePointGrids>
+      <addDeltaBands>false</addDeltaBands>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Reproject"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file></file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="37.0" y="134.0"/>
+    </node>
+    <node id="Idepix.Sentinel3.Olci">
+      <displayPosition x="170.0" y="114.0"/>
+    </node>
+    <node id="Reproject">
+      <displayPosition x="390.0" y="125.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="782.0" y="139.0"/>
+    </node>
+  </applicationData>
+</graph>
